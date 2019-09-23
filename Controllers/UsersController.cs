@@ -19,7 +19,7 @@ namespace ShiftSchedulerApi.Controllers
 
         // GET: api/Users
         [HttpGet]
-        [ResponseCache(Duration = 60, Location =ResponseCacheLocation.Client)]
+        [ResponseCache(Duration = 60, Location = ResponseCacheLocation.Client)]
         public IActionResult Get(string sort)
         {
             IQueryable<User> users;
@@ -83,8 +83,19 @@ namespace ShiftSchedulerApi.Controllers
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            var user = _shiftSchedulerDbContext.Users.Find(id);
+            if (user == null)
+            {
+                return NotFound("No User with that id");
+            }
+            else
+            {
+                _shiftSchedulerDbContext.Users.Remove(user);
+                _shiftSchedulerDbContext.SaveChanges();
+                return Ok("User successfully deleted");
+            }
         }
     }
 }
