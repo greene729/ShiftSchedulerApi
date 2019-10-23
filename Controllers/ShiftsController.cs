@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ShiftSchedulerApi.Data;
@@ -8,6 +9,7 @@ namespace ShiftSchedulerApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ShiftsController : ControllerBase
     {
         private ShiftSchedulerDbContext _shiftSchedulerDbContext;
